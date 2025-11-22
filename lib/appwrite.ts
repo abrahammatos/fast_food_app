@@ -1,17 +1,18 @@
-import { CreateUserParams, SignInParams } from "@/type";
+import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
 import {
   Account,
   Avatars,
   Client,
   ID,
   Query,
+  Storage,
   TablesDB,
 } from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!,
   platform: process.env.EXPO_PUBLIC_APPWRITE_PLATFORM,
-  projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
+  projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!,
   databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!,
   bucketId: process.env.EXPO_PUBLIC_APPWRITE_BUCKET_ID!,
   userTableId: process.env.EXPO_PUBLIC_APPWRITE_USER_TABLE_ID!,
@@ -32,6 +33,7 @@ client
 
 export const account = new Account(client);
 export const tablesDB = new TablesDB(client);
+export const storage = new Storage(client);
 const avatars = new Avatars(client);
 
 export const createUser = async ({
@@ -72,7 +74,6 @@ export const signIn = async ({ email, password }: SignInParams) => {
       email,
       password,
     });
-    return session;
   } catch (error) {
     throw new Error(error as string);
   }
@@ -95,6 +96,36 @@ export const getCurrentUser = async () => {
     return currentUser.rows[0];
   } catch (error) {
     console.log(error);
+    throw new Error(error as string);
+  }
+};
+
+export const getMenu = async ({ category, query }: GetMenuParams) => {
+  try {
+    const queries: string[] = [];
+
+    if (category) queries.push(Query.equal("categories", category));
+    if (query) queries.push(Query.search("name", query));
+
+    const menus = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: appwriteConfig.menuTableId,
+      queries: queries,
+    });
+
+    return menus.rows;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const categories = await tablesDB.listRows({
+      databaseId: appwriteConfig.databaseId,
+      tableId: appwriteConfig.categoriesTableId,
+    });
+  } catch (error) {
     throw new Error(error as string);
   }
 };

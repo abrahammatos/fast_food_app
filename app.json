@@ -47,7 +47,8 @@
           "project": "sma-eitafome-app",
           "organization": "abraham-y4"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,
