@@ -2,6 +2,7 @@ import CartButton from "@/components/CartButton";
 import { images, offers } from "@/constants";
 import useAuthStore from "@/store/auth.store";
 import cn from "clsx";
+import { router } from "expo-router";
 import { Fragment } from "react";
 import {
   FlatList,
@@ -13,8 +14,24 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+const OFFER_CATEGORY_MAP: Record<string, string> = {
+  "SUMMER COMBO": "691d2598000b612278c2",
+  "BURGER BASH": "691d2598000b612278c2",
+  "PIZZA PARTY": "691d2598002595012e6c",
+  "BURRITO DELIGHT": "691d2598003b52351dff",
+};
+
 export default function Index() {
   const { user } = useAuthStore();
+
+  const handleOfferPress = (offerTitle: string) => {
+    const categoryId = OFFER_CATEGORY_MAP[offerTitle];
+
+    router.push({
+      pathname: "/search",
+      params: { category: categoryId },
+    });
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -26,6 +43,7 @@ export default function Index() {
           return (
             <View>
               <Pressable
+                onPress={() => handleOfferPress(item.title)}
                 className={cn(
                   "offer-card",
                   isEven ? "flex-row-reverse" : "flex-row"
