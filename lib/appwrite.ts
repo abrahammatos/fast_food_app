@@ -125,6 +125,8 @@ export const getCategories = async () => {
       databaseId: appwriteConfig.databaseId,
       tableId: appwriteConfig.categoriesTableId,
     });
+
+    return categories.rows;
   } catch (error) {
     throw new Error(error as string);
   }
