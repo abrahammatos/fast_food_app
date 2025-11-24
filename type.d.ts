@@ -1,3 +1,4 @@
+import { Feather } from "@expo/vector-icons";
 import { Models } from "react-native-appwrite";
 
 export interface MenuItem extends Models.Document {
@@ -104,4 +105,11 @@ interface SignInParams {
 interface GetMenuParams {
   category: string;
   query: string;
+}
+
+interface InfoRowProps {
+  icon: keyof typeof Feather.glyphMap;
+  label: string;
+  value: string;
+  isLast?: boolean;
 }

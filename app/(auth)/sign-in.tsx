@@ -1,6 +1,8 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import { signIn } from "@/lib/appwrite";
+import { getCurrentUser, signIn } from "@/lib/appwrite";
+import useAuthStore from "@/store/auth.store";
+import { User } from "@/type";
 import * as Sentry from "@sentry/react-native";
 import { Link, router } from "expo-router";
 import { useState } from "react";
@@ -9,6 +11,7 @@ import { Alert, Text, View } from "react-native";
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
+  const { setUser, setIsAuthenticated } = useAuthStore();
 
   const submit = async () => {
     const { email, password } = form;
@@ -20,6 +23,11 @@ const SignIn = () => {
 
     try {
       await signIn({ email, password });
+      const result = await getCurrentUser();
+
+      setUser(result as unknown as User);
+      setIsAuthenticated(true);
+
       router.replace("/");
     } catch (error: any) {
       Alert.alert("Error", error.message);

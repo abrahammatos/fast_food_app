@@ -131,3 +131,15 @@ export const getCategories = async () => {
     throw new Error(error as string);
   }
 };
+
+export const signOut = async () => {
+  try {
+    const session = await account.deleteSession({
+      sessionId: "current",
+    });
+
+    return session;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
