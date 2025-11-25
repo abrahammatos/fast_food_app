@@ -19,6 +19,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
   addItem: (item) => {
     const customizations = item.customizations ?? [];
 
+    const quantityToAdd =
+      item.quantity && item.quantity > 0 ? item.quantity : 1;
+
     const existing = get().items.find(
       (i) =>
         i.id === item.id &&
@@ -30,13 +33,16 @@ export const useCartStore = create<CartStore>((set, get) => ({
         items: get().items.map((i) =>
           i.id === item.id &&
           areCustomizationsEqual(i.customizations ?? [], customizations)
-            ? { ...i, quantity: i.quantity + 1 }
+            ? { ...i, quantity: i.quantity + quantityToAdd }
             : i
         ),
       });
     } else {
       set({
-        items: [...get().items, { ...item, quantity: 1, customizations }],
+        items: [
+          ...get().items,
+          { ...item, quantity: quantityToAdd, customizations },
+        ],
       });
     }
   },

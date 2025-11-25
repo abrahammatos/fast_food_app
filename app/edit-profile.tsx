@@ -90,7 +90,7 @@ const EditProfile = () => {
         <Text className="text-lg font-bold ml-4">Editar Perfil</Text>
       </View>
 
-      <ScrollView className="p-5">
+      <ScrollView key={user?.$id} className="p-5">
         {/* Avatar Upload */}
         <View className="items-center mb-8">
           <TouchableOpacity onPress={pickImage} className="relative">

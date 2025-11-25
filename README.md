@@ -1,50 +1,138 @@
-# Welcome to your Expo app 👋
+<div align="center">
+  <img src="assets/images/logo.png" alt="Fast Food Logo" width="150"/>
+  <h1>Fast Food Mobile App</h1>
+  <p>
+    A modern, cross-platform mobile application for browsing and ordering from a fast-food menu, built with React Native and Expo.
+  </p>
+</div>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+---
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+-   **Authentication:** Secure sign-up and sign-in functionality.
+-   **Profile Management:** Users can view and edit their profile information.
+-   **Product Catalog:** Browse a list of available food items with details.
+-   **Product Details:** View detailed information for each menu item.
+-   **Shopping Cart:** Add/remove items and manage the order before checkout.
+-   **Search:** Quickly find desired menu items.
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Tech Stack
 
-2. Start the app
+-   **Framework:** [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+-   **Routing:** [Expo Router](https://docs.expo.dev/router/introduction/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/) with [NativeWind](https://www.nativewind.dev/)
+-   **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
+-   **Backend & Database:** [Appwrite](https://appwrite.io/)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
 
-   ```bash
-   npx expo start
-   ```
+## ✅ Prerequisites
 
-In the output, you'll find options to open the app in a
+Before you begin, ensure you have the following installed:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+-   [Node.js](https://nodejs.org/en/) (LTS version recommended)
+-   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+-   [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
 ```bash
-npm run reset-project
+npm install -g expo-cli
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## ⚙️ Installation
 
-## Learn more
+1.  **Clone the repository:**
 
-To learn more about developing your project with Expo, look at the following resources:
+    ```bash
+    git clone https://github.com/your-username/fast-food-app.git
+    cd fast-food-app
+    ```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+2.  **Install dependencies:**
 
-## Join the community
+    ```bash
+    npm install
+    ```
 
-Join our community of developers creating universal apps.
+3.  **Set up environment variables:**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+    Create a `.env` file in the root of the project by copying the example file:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Then, fill in the required values in the `.env` file with your Appwrite project credentials.
+
+    ```dotenv
+    EXPO_PUBLIC_APPWRITE_PROJECT_ID=<YOUR_APPWRITE_PROJECT_ID>
+    EXPO_PUBLIC_APPWRITE_PROJECT_NAME=<YOUR_APPWRITE_PROJECT_NAME>
+    EXPO_PUBLIC_APPWRITE_PLATFORM=<YOUR_APPWRITE_PLATFORM>
+    EXPO_PUBLIC_APPWRITE_DATABASE_ID=<YOUR_APPWRITE_DATABASE_ID>
+    EXPO_PUBLIC_APPWRITE_BUCKET_ID=<YOUR_APPWRITE_BUCKET_ID>
+    EXPO_PUBLIC_APPWRITE_USER_TABLE_ID=<YOUR_APPWRITE_USER_TABLE_ID>
+    EXPO_PUBLIC_APPWRITE_CATEGORIES_TABLE_ID=<YOUR_APPWRITE_CATEGORIES_TABLE_ID>
+    EXPO_PUBLIC_APPWRITE_MENU_TABLE_ID=<YOUR_APPWRITE_MENU_TABLE_ID>
+    EXPO_PUBLIC_APPWRITE_CUSTOMIZATIONS_TABLE_ID=<YOUR_APPWRITE_CUSTOMIZATIONS_TABLE_ID>
+    EXPO_PUBLIC_APPWRITE_MENU_CUSTOMIZATIONS_TABLE_ID=<YOUR_APPWRITE_MENU_CUSTOMIZATIONS_TABLE_ID>
+    EXPO_PUBLIC_APPWRITE_ENDPOINT=<YOUR_APPWRITE_ENDPOINT>
+    ```
+
+## ▶️ Running the Application
+
+Once the setup is complete, you can run the application on your desired platform:
+
+-   **To start the development server:**
+
+    ```bash
+    npx expo start
+    ```
+
+-   **To run on Android:**
+
+    ```bash
+    npm run android
+    ```
+
+-   **To run on iOS:**
+
+    ```bash
+    npm run ios
+    ```
+
+-   **To run on Web:**
+    ```bash
+    npm run web
+    ```
+
+This will open the Expo Dev Tools in your browser. You can then use the Expo Go app on your mobile device to scan the QR code or run the app in an emulator/simulator.
+
+## 📜 Available Scripts
+
+In the project directory, you can run the following scripts:
+
+-   `npm start`: Starts the Expo development server.
+-   `npm run android`: Runs the app on a connected Android device or emulator.
+-   `npm run ios`: Runs the app on an iOS simulator.
+-   `npm run web`: Runs the app in a web browser.
+-   `npm run lint`: Lints the project files using ESLint.
+
+## 📁 Folder Structure
+
+The project follows a feature-based folder structure:
+
+```
+├── app/                  # Main application folder (using Expo Router)
+│   ├── (auth)/           # Authentication screens
+│   ├── (tabs)/           # Main app tabs (Home, Cart, Profile, etc.)
+│   └── product/          # Product-related screens
+├── assets/               # Static assets (fonts, icons, images)
+├── components/           # Reusable UI components
+├── constants/            # Global constants
+├── lib/                  # Libraries and helper functions (e.g., Appwrite config)
+├── store/                # State management stores (Zustand)
+└── tailwind.config.js    # Tailwind CSS configuration
+```
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

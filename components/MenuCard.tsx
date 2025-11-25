@@ -1,9 +1,20 @@
 import { useCartStore } from "@/store/cart.store";
 import { MenuItem } from "@/type";
+import { router } from "expo-router";
 import { Image, Platform, Text, TouchableOpacity } from "react-native";
 
 const MenuCard = ({
-  item: { $id, image_url, name, price },
+  item: {
+    $id,
+    image_url,
+    name,
+    price,
+    description,
+    calories,
+    protein,
+    rating,
+    type,
+  },
 }: {
   item: MenuItem;
 }) => {
@@ -12,6 +23,22 @@ const MenuCard = ({
 
   return (
     <TouchableOpacity
+      onPress={() => {
+        router.push({
+          pathname: `/product/[id]`,
+          params: {
+            id: $id,
+            name: name,
+            price: price,
+            image: image_url, // Passa a URL da imagem
+            description: description,
+            type,
+            calories,
+            protein,
+            rating,
+          },
+        });
+      }}
       className="menu-card"
       style={
         Platform.OS === "android"
