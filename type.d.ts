@@ -21,6 +21,8 @@ export interface User extends Models.Document {
   name: string;
   email: string;
   avatar: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface CartCustomization {

@@ -1,4 +1,4 @@
-import { CreateUserParams, GetMenuParams, SignInParams } from "@/type";
+import { CreateUserParams, GetMenuParams, SignInParams, User } from "@/type";
 import {
   Account,
   Avatars,
@@ -139,6 +139,51 @@ export const signOut = async () => {
     });
 
     return session;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
+export const uploadFile = async (file: {
+  uri: string;
+  name: string;
+  type: string;
+}) => {
+  if (!file) return;
+
+  try {
+    const uploadedFile = await storage.createFile({
+      bucketId: appwriteConfig.bucketId,
+      fileId: ID.unique(),
+      file: {
+        name: file.name,
+        type: file.type,
+        size: 0,
+        uri: file.uri,
+      },
+    });
+
+    const fileUrl = `${appwriteConfig.endpoint}/storage/buckets/${appwriteConfig.bucketId}/files/${uploadedFile.$id}/view?project=${appwriteConfig.projectId}&mode=admin`;
+
+    return fileUrl;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
+export const updateUser = async (
+  documentId: string,
+  data: { name: string; phone: string; address: string; avatar?: string }
+) => {
+  try {
+    const updatedUser = await tablesDB.updateRow({
+      databaseId: appwriteConfig.databaseId,
+      tableId: appwriteConfig.userTableId,
+      rowId: documentId,
+      data: data,
+    });
+
+    return updatedUser as unknown as User;
   } catch (error) {
     throw new Error(error as string);
   }

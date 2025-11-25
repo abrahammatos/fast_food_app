@@ -68,21 +68,22 @@ const Profile = () => {
         <View className="bg-white rounded-3xl p-5 mb-6 shadow-lg">
           <InfoRow icon="user" label="Full Name" value={user?.name!} />
           <InfoRow icon="mail" label="Email" value={user?.email!} />
-          <InfoRow icon="phone" label="Phone number" value="+1 555 123 4567" />
+          <InfoRow
+            icon="phone"
+            label="Phone number"
+            value={user?.phone || "No Phone number yet."}
+          />
           <InfoRow
             icon="map-pin"
             label="Address 1 - (Home)"
-            value="123 Main Street, Springfield, IL 62704"
-          />
-          <InfoRow
-            icon="map-pin"
-            label="Address 2 - (Work)"
-            value="221B Rose Street, Foodville, FL 12345"
-            isLast
+            value={user?.address || "No Address yet."}
           />
         </View>
 
-        <TouchableOpacity className="flex-row justify-center items-center py-4 rounded-full border border-[#ffa726] mb-4">
+        <TouchableOpacity
+          onPress={() => router.push("/edit-profile")}
+          className="flex-row justify-center items-center py-4 rounded-full border border-[#ffa726] mb-4"
+        >
           <Text className="text-primary font-bold text-base">Edit Profile</Text>
         </TouchableOpacity>
 
